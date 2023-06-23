@@ -24,6 +24,12 @@ public class example1 {
 
         Vehicle vehicleC = (Vehicle) context.getBean("mercedesVehicle", Vehicle.class);
         System.out.println(vehicleC.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
+
+        Vehicle vehicleD = (Vehicle) context.getBean("skodaVehicle", Vehicle.class);
+        System.out.println(vehicleD.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
+
+        Vehicle vehicleE = (Vehicle) context.getBean("volvoVehicle", Vehicle.class);
+        System.out.println(vehicleE.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
     }
 
 
