@@ -8,23 +8,23 @@ import org.springframework.context.annotation.Configuration;
 public class ProjectConfig {
 
     @Bean
-    Vehicle vehicle1() {
+    Vehicle vehicle1 () {
         Vehicle vehicle = new Vehicle();
-        vehicle.setVehicleName("Audi");
+        vehicle.setName("Audi");
         return vehicle;
     }
 
     @Bean
     Vehicle vehicle2 () {
         Vehicle vehicle = new Vehicle();
-        vehicle.setVehicleName("Bmw");
+        vehicle.setName("Bmw");
         return vehicle;
     }
 
-    @Bean
+    @Bean(name="mercedesVehicle")
     Vehicle vehicle3 () {
         var vehicle = new Vehicle();
-        vehicle.setVehicleName("Mercedes");
+        vehicle.setName("Mercedes");
         return vehicle;
     }
 

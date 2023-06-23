@@ -4,11 +4,11 @@ public class Vehicle {
 
     private String name;
 
-    public String getVehicleName() {
+    public String getName() {
         return name;
     }
 
-    public void setVehicleName (String name) {
+    public void setName (String name) {
         this.name = name;
     }
 }
