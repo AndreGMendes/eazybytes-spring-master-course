@@ -10,7 +10,7 @@ import java.util.Locale;
 public class example1 {
 
     final static String NOTE_FROM_SPRING_IOC = " was created from within the IOC container in the Spring Framework.";
-
+    final static String NOTE_PRIMARY_BEAN = " This is the PRIMARY bean.";
 
     public static void main(String[] args) {
 
@@ -30,6 +30,10 @@ public class example1 {
 
         Vehicle vehicleE = (Vehicle) context.getBean("volvoVehicle", Vehicle.class);
         System.out.println(vehicleE.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
+
+        Vehicle vehiclePrimary = context.getBean(Vehicle.class);
+        System.out.println(vehiclePrimary.getName().toUpperCase() + NOTE_FROM_SPRING_IOC + NOTE_PRIMARY_BEAN);
+
     }
 
 
