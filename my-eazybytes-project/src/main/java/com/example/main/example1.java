@@ -2,7 +2,11 @@ package com.example.main;
 
 import com.example.beans.Vehicle;
 import com.example.config.ProjectConfig;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.Random;
+import java.util.function.Supplier;
 
 public class example1 {
 
@@ -13,23 +17,46 @@ public class example1 {
 
         var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
 
-        Vehicle vehicle = context.getBean(Vehicle.class);
-        System.out.println(vehicle.getBrand());
-        System.out.println(vehicle.getModel());
+        Vehicle volkswagen = new Vehicle();
+        volkswagen.setName("Volkswagen");
+        Supplier<Vehicle> volkswagenSupplier = () -> volkswagen;
 
-        vehicle.specifyVehicle("vehicle1");
-        System.out.println("Brand: " + vehicle.getBrand());
-        System.out.println("Model: " + vehicle.getModel());
 
-        vehicle.specifyVehicle("vehicle2");
-        System.out.println("Brand: " + vehicle.getBrand());
-        System.out.println("Model: " + vehicle.getModel());
+        Supplier<Vehicle> audiSupplier = () -> {
+            Vehicle audi = new Vehicle();
+            audi.setName("Audi");
+            return audi;
+        };
 
-        vehicle.specifyVehicle("");
-        System.out.println("Brand: " + vehicle.getBrand());
-        System.out.println("Model: " + vehicle.getModel());
+        Random random = new Random();
+        int randomNumber = random.nextInt(10);
+        System.out.println("randomNumber = " + randomNumber);
 
-        context.close();
+        if((randomNumber% 2) == 0){
+            context.registerBean("volkswagen",
+                    Vehicle.class,volkswagenSupplier);
+        }else{
+            context.registerBean("audi",
+                    Vehicle.class,audiSupplier);
+        }
+        Vehicle volksVehicle = null;
+        Vehicle audiVehicle = null;
+        try {
+            volksVehicle = context.getBean("volkswagen",Vehicle.class);
+        }catch (NoSuchBeanDefinitionException noSuchBeanDefinitionException){
+            System.out.println("Error while creating Volkswagen vehicle");
+        }
+        try {
+            audiVehicle = context.getBean("audi",Vehicle.class);
+        }catch (NoSuchBeanDefinitionException noSuchBeanDefinitionException){
+            System.out.println("Error while creating Audi vehicle");
+        }
+
+        if(volksVehicle != null){
+            System.out.println("Programming Vehicle name from Spring Context is: " + volksVehicle.getName());
+        }else{
+            System.out.println("Programming Vehicle name from Spring Context is: " + audiVehicle.getName());
+        }
 
     }
 

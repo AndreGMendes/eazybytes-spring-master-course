@@ -9,56 +9,19 @@ import java.util.Locale;
 @Component
 public class Vehicle {
 
-    private String model;
-    private String brand;
+    private String name;
 
-    public String getModel() {
-        return model;
+    public String getName() {
+        return name;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBrand() {
-        return brand;
+    public void printHello(){
+        System.out.println("Printing Hello from Component Vehicle Bean");
     }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public Vehicle() {
-        this.brand = "Model: " + "skoda".toUpperCase();
-    }
-
-    @PostConstruct
-    public void initialize() {
-        this.model = "Brand: " + "fabia".toUpperCase();
-    }
-
-    public void specifyVehicle(String brand) {
-
-        switch (brand) {
-            case "vehicle1" :
-                this.brand = "skoda".toUpperCase();
-                this.model = "fabia".toUpperCase();
-            break;
-            case "vehicle2" :
-                this.brand = "rover".toUpperCase();
-                this.model = "evoke".toUpperCase();
-            break;
-            default :
-                this.brand = "lamborghini".toUpperCase();
-                this.model = "diablo".toUpperCase();
-        }
-    }
-
-    @PreDestroy
-    public void destroy() {
-        System.out.println("\nBean as been destroyed.");
-    }
-
 
 
 }
