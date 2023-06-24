@@ -1,6 +1,7 @@
 package com.example.beans;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -51,6 +52,11 @@ public class Vehicle {
                 this.brand = "lamborghini".toUpperCase();
                 this.model = "diablo".toUpperCase();
         }
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("\nBean as been destroyed.");
     }
 
 

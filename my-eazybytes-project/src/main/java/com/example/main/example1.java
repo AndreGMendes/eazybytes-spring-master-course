@@ -14,8 +14,6 @@ public class example1 {
         var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
 
         Vehicle vehicle = context.getBean(Vehicle.class);
-        /*vehicle.setBrand("Brand: " + "Rover".toUpperCase());
-        vehicle.setModel("Model: " + "Evoke".toUpperCase());*/
         System.out.println(vehicle.getBrand());
         System.out.println(vehicle.getModel());
 
@@ -31,21 +29,8 @@ public class example1 {
         System.out.println("Brand: " + vehicle.getBrand());
         System.out.println("Model: " + vehicle.getModel());
 
+        context.close();
 
-       /* Vehicle vehicleA = (Vehicle) context.getBean("vehicle1", Vehicle.class);
-        System.out.println(vehicleA.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
-
-        Vehicle vehicleB = (Vehicle) context.getBean("vehicle2");
-        System.out.println(vehicleB.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
-
-        Vehicle vehicleC = (Vehicle) context.getBean("mercedesVehicle", Vehicle.class);
-        System.out.println(vehicleC.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
-
-        Vehicle vehicleD = (Vehicle) context.getBean("skodaVehicle", Vehicle.class);
-        System.out.println(vehicleD.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
-
-        Vehicle vehicleE = (Vehicle) context.getBean("volvoVehicle", Vehicle.class);
-        System.out.println(vehicleE.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);*/
     }
 
 
