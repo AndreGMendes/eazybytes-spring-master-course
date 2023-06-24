@@ -4,9 +4,6 @@ import com.example.beans.Vehicle;
 import com.example.config.ProjectConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.lang.invoke.VarHandle;
-import java.util.Locale;
-
 public class example1 {
 
     final static String NOTE_FROM_SPRING_IOC = " was created from within the IOC container in the Spring Framework.";
@@ -16,7 +13,26 @@ public class example1 {
 
         var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
 
-        Vehicle vehicleA = (Vehicle) context.getBean("vehicle1", Vehicle.class);
+        Vehicle vehicle = context.getBean(Vehicle.class);
+        /*vehicle.setBrand("Brand: " + "Rover".toUpperCase());
+        vehicle.setModel("Model: " + "Evoke".toUpperCase());*/
+        System.out.println(vehicle.getBrand());
+        System.out.println(vehicle.getModel());
+
+        vehicle.specifyVehicle("vehicle1");
+        System.out.println("Brand: " + vehicle.getBrand());
+        System.out.println("Model: " + vehicle.getModel());
+
+        vehicle.specifyVehicle("vehicle2");
+        System.out.println("Brand: " + vehicle.getBrand());
+        System.out.println("Model: " + vehicle.getModel());
+
+        vehicle.specifyVehicle("");
+        System.out.println("Brand: " + vehicle.getBrand());
+        System.out.println("Model: " + vehicle.getModel());
+
+
+       /* Vehicle vehicleA = (Vehicle) context.getBean("vehicle1", Vehicle.class);
         System.out.println(vehicleA.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
 
         Vehicle vehicleB = (Vehicle) context.getBean("vehicle2");
@@ -29,7 +45,7 @@ public class example1 {
         System.out.println(vehicleD.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
 
         Vehicle vehicleE = (Vehicle) context.getBean("volvoVehicle", Vehicle.class);
-        System.out.println(vehicleE.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);
+        System.out.println(vehicleE.getName().toUpperCase() + NOTE_FROM_SPRING_IOC);*/
     }
 
 
