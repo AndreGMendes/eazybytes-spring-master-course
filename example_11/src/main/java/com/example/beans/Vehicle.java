@@ -5,10 +5,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class Vehicle {
 
+    private String name = "Toyota";
+
     public Vehicle(){
         System.out.println("Vehicle bean created by Spring");
     }
-    private String name = "Toyota";
+
 
     public String getName() {
         return name;
@@ -17,6 +19,7 @@ public class Vehicle {
     public void setName(String name) {
         this.name = name;
     }
+
 
     public void printHello(){
         System.out.println(

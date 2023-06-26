@@ -8,7 +8,7 @@ public class Person {
 
     private String name="Lucy";
 
-    @Autowired
+    /*@Autowired*/                                      // It can be commented here because we only have one constructor here
     public Person(Vehicle vehicle){
         System.out.println("Person bean created by Spring");
         this.vehicle = vehicle;
@@ -20,7 +20,7 @@ public class Person {
     by Spring Dependency Injection mechanism
     * */
     /*@Autowired*/
-    private Vehicle vehicle;
+    private final Vehicle vehicle;                      // We can use "final" here since the autowire is made on the constructor
 
     public String getName() {
         return name;
@@ -35,8 +35,8 @@ public class Person {
     }
 
     /*@Autowired*/
-    public void setVehicle(Vehicle vehicle) {
+   /* public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
-    }
+    }*/
 
 }

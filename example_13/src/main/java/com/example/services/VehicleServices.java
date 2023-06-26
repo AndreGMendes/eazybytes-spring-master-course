@@ -3,12 +3,14 @@ package com.example.services;
 import com.example.interfaces.Speakers;
 import com.example.interfaces.Tyres;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VehicleServices {
 
     @Autowired
+    @Qualifier("boseSpeakers")
     private Speakers speakers;
     private Tyres tyres;
 
@@ -35,7 +37,7 @@ public class VehicleServices {
     }
 
     @Autowired
-    public void setTyres(Tyres tyres) {
+    public void setTyres(@Qualifier("bridgeStoneTyres") Tyres tyres) {
         this.tyres = tyres;
     }
 }

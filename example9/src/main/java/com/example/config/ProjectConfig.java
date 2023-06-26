@@ -15,7 +15,7 @@ to be used in the application.
 @Configuration
 public class ProjectConfig {
 
-    @Bean
+    @Bean(name = "myVehicle")
     public Vehicle vehicle() {
         Vehicle vehicle = new Vehicle();
         vehicle.setName("Toyota");
@@ -33,7 +33,7 @@ public class ProjectConfig {
     public Person person() {
         Person person = new Person();
         person.setName("Lucy");
-        person.setVehicle(vehicle());
+        person.setVehicle(vehicle()); // If we comment this line it will not associate the vehicle to the Person
         return person;
     }
 

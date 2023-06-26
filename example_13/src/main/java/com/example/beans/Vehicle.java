@@ -4,8 +4,8 @@ import com.example.services.VehicleServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component("vehicleBean")
-public class Vehicle {
+@Component(value = "vehicleBean")
+public class  Vehicle {
 
     private String name="Honda";
     private final VehicleServices vehicleServices;

@@ -4,7 +4,7 @@ import com.example.interfaces.Speakers;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component (value="boseSpeakers")
 public class BoseSpeakers implements Speakers {
 
     public String makeSound(){

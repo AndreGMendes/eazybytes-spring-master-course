@@ -1,5 +1,7 @@
 package com.example.beans;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Person {
 
     public Person(){
@@ -7,6 +9,7 @@ public class Person {
     }
 
     private String name;
+
     private Vehicle vehicle;
 
     public String getName() {
