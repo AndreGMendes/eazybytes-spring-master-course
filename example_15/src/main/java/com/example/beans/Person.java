@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component(value="personBean")
-@Lazy
+@Lazy                               // Commenting this line will make the Bean get created during the startup of the app
 public class Person {
 
     private String name="Lucy";
