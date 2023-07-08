@@ -17,7 +17,7 @@ Author URL: http://w3layouts.com
 </head>
 
 <body>
-    <!-- header --> <!--nome do template ('.html' não necessário) :: nome do elemento HTML-->
+    <!-- header -->
     <div th:replace="~{header :: header}">...</div>
     <!-- //header -->
 
@@ -28,7 +28,7 @@ Author URL: http://w3layouts.com
                 <div class="row align-items-center pt-sm-5 pt-4">
                     <div class="col-md-6">
                         <h3 class="mb-lg-4 mb-3">Your Kids Deserve The<span class="d-block">Best Education</span>
-                         </h3>
+                        </h3>
                         <p class="banner-sub">Active Learning, Expert Teachers & Safe Environment</p>
                         <div class="d-flex align-items-center buttons-banner">
                             <a th:href="@{/contact}" class="btn btn-style mt-lg-5 mt-4">Admission Now</a>
@@ -194,7 +194,7 @@ Author URL: http://w3layouts.com
                         <ul>
                             <li class="anim1">
                                 <img src="assets/images/testi1.jpg" class="img-fluid rounded-circle"
-                                     alt="client image" />
+                                    alt="client image" />
                                 <blockquote class="quote"><q>I am very happy that my son is studying in the
                                     Eazy school. The support provided by the teachers is great and the curriculum
                                     that they follow is of international standards.
@@ -204,7 +204,7 @@ Author URL: http://w3layouts.com
 
                             <li class="anim2">
                                 <img src="assets/images/testi2.jpg" class="img-fluid rounded-circle"
-                                     alt="client image" />
+                                    alt="client image" />
                                 <blockquote class="quote"><q>My child never felt pressure of studies in
                                     the Eazy School. He is always encouraged to follow his own interest
                                      and the school provides wide variety of programs for the students
@@ -214,7 +214,7 @@ Author URL: http://w3layouts.com
                             </li>
                             <li class="anim3">
                                 <img src="assets/images/testi3.jpg" class="img-fluid rounded-circle "
-                                     alt="client image" />
+                                    alt="client image" />
                                 <blockquote class="quote"><q>Loved the infrastructure and cleanly
                                      environment that school maintains. This is very important
                                      in the current pandemic situations.
@@ -223,7 +223,7 @@ Author URL: http://w3layouts.com
                             </li>
                             <li class="anim4">
                                 <img src="assets/images/testi1.jpg" class="img-fluid rounded-circle"
-                                     alt="client image" />
+                                    alt="client image" />
                                 <blockquote class="quote"><q>With the help of Cambridge
                                     authorized programs, teachers always
                                     enhancing my child classroom experiences
@@ -233,7 +233,7 @@ Author URL: http://w3layouts.com
                             </li>
                             <li class="anim5">
                                 <img src="assets/images/testi2.jpg" class="img-fluid rounded-circle"
-                                     alt="client image" />
+                                    alt="client image" />
                                 <blockquote class="quote"><q>Eazy Schools supports both online and offline
                                     classes based on the pandemic conditions to make sure that there is
                                      no impact on the children studies. School staff always does their
@@ -352,7 +352,7 @@ Author URL: http://w3layouts.com
     <!-- //call block -->
 
     <!-- footer block -->
-    <div th:replace="footer :: footer"></div>
+    <div th:replace="~{footer :: footer}">...</div>
     <!-- //footer block -->
 
     <!-- Js scripts -->
