@@ -1,17 +1,30 @@
 package com.eazybytes.eazyschool.service;
 
+import com.eazybytes.eazyschool.constants.EazySchoolConstants;
 import com.eazybytes.eazyschool.controller.ContactController;
 import com.eazybytes.eazyschool.model.Contact;
+import com.eazybytes.eazyschool.repository.ContactRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-@RequestScope
+// @RequestScope
+// @SessionScope
+// @ApplicationScope
 public class ContactService {
+
+    @Autowired
+    private ContactRepository contactRepository;
+
+    /*private int counter = 0;*/
 
     /**Removed because with annotation '@Slf4j'
      * the log object is created by Lombok automatically */
@@ -21,7 +34,6 @@ public class ContactService {
         System.out.println("Contact Service Bean Initialized");
     }
 
-    private int counter = 0;
 
 
     /**
@@ -31,18 +43,26 @@ public class ContactService {
     * */
 
     public boolean saveMessageDetails (Contact contact) {
-        boolean isSaved = true;
-        //TODO - Need to persist the data into the DB table
-        log.info(contact.toString());
+        boolean isSaved = false;
+        contact.setStatus(EazySchoolConstants.OPEN);
+        contact.setCreatedBy(EazySchoolConstants.ANONYMOUS);
+        contact.setCreatedAt(LocalDateTime.now());
+
+        int result = contactRepository.saveContactMsg(contact);
+        if (result > 0) {
+            isSaved = true;
+        }
+
+        /*log.info(contact.toString());*/
         return isSaved;
     }
 
-    public int getCounter() {
+   /* public int getCounter() {
         return counter;
     }
 
     public void setCounter(int counter) {
         this.counter = counter;
-    }
+    }*/
 
 }

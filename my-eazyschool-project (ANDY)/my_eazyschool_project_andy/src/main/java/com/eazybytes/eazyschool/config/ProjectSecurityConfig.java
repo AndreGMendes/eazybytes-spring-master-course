@@ -1,5 +1,6 @@
 package com.eazybytes.eazyschool.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +24,9 @@ public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         /*http.csrf().disable()*/
-        http.csrf().ignoringRequestMatchers("/saveMsg")
+        http.csrf()
+                .ignoringRequestMatchers("/saveMsg")
+                .ignoringRequestMatchers(PathRequest.toH2Console())
             .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/dashboard").authenticated()
@@ -36,6 +39,7 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/assets/**").permitAll()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/logout").permitAll()
+                .requestMatchers(PathRequest.toH2Console()).permitAll()
             .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard")
@@ -44,7 +48,10 @@ public class ProjectSecurityConfig {
                 .logout().logoutSuccessUrl("/login?logout=true")
                 .invalidateHttpSession(true).permitAll()
             .and()
-                .httpBasic();
+                .httpBasic()
+            .and()
+                .headers().frameOptions().disable();
+        /*http.headers().frameOptions().disable();*/
 
         return http.build();
 
