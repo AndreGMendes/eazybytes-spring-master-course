@@ -1,6 +1,8 @@
 package com.eazybytes.eazyschool.controller;
 
 import com.eazybytes.eazyschool.model.Holiday;
+import com.eazybytes.eazyschool.repository.HolidaysRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,9 @@ import java.util.stream.Collectors;
 
 @Controller
 public class HolidaysController {
+
+    @Autowired
+    HolidaysRepository holidaysRepository;
 
     @GetMapping("/holidays/{display}")
     public String displayHolidays(Model model,
@@ -27,7 +32,7 @@ public class HolidaysController {
             model.addAttribute("festival", true);
         }
 
-        List<Holiday> holidays = Arrays.asList(
+        /*List<Holiday> holidays = Arrays.asList(
                 new Holiday(" Jan 1 ","New Year's Day", Holiday.Type.FESTIVAL),
                 new Holiday(" Oct 31 ","Halloween", Holiday.Type.FESTIVAL),
                 new Holiday(" Nov 24 ","Thanksgiving Day", Holiday.Type.FESTIVAL),
@@ -36,7 +41,17 @@ public class HolidaysController {
                 new Holiday(" July 4 ","Independence Day", Holiday.Type.FEDERAL),
                 new Holiday(" Sep 5 ","Labor Day", Holiday.Type.FEDERAL),
                 new Holiday(" Nov 11 ","Veterans Day", Holiday.Type.FEDERAL)
-        );
+        );*/
+
+       /* Holiday.Type[] types = Holidays.Type.values();
+        for (Holiday.Type type : types) {
+            model.addAttribute(type.toString(),
+                    (holidays.stream()
+                            .filter(holiday -> holiday.getType().equals(type))
+                            .collect(Collectors.toList())));
+        }*/
+
+        List<Holiday> holidays = holidaysRepository.findAllHolidays();
         Holiday.Type[] types = Holiday.Type.values();
         for (Holiday.Type type : types) {
             model.addAttribute(type.toString(),
@@ -44,6 +59,7 @@ public class HolidaysController {
                             .filter(holiday -> holiday.getType().equals(type))
                             .collect(Collectors.toList())));
         }
+
         return "holidays.html";
     }
 

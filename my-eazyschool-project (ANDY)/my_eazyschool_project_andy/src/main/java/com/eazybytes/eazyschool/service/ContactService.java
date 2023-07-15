@@ -13,6 +13,7 @@ import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -64,5 +65,19 @@ public class ContactService {
     public void setCounter(int counter) {
         this.counter = counter;
     }*/
+
+    public List<Contact> findMsgsWithOpenStatus(){
+        List<Contact> contactMsgs = contactRepository.findMsgsWithStatus(EazySchoolConstants.OPEN);
+        return contactMsgs;
+    }
+
+    public boolean updateMsgStatus(int contactId, String updatedBy){
+        boolean isUpdated = false;
+        int result = contactRepository.updateMsgStatus(contactId,EazySchoolConstants.CLOSE, updatedBy);
+        if(result>0) {
+            isUpdated = true;
+        }
+        return isUpdated;
+    }
 
 }

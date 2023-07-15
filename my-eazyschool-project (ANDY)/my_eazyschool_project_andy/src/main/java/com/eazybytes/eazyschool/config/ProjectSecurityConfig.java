@@ -26,10 +26,12 @@ public class ProjectSecurityConfig {
         /*http.csrf().disable()*/
         http.csrf()
                 .ignoringRequestMatchers("/saveMsg")
-                .ignoringRequestMatchers(PathRequest.toH2Console())
+                /*.ignoringRequestMatchers(PathRequest.toH2Console())*/
             .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/dashboard").authenticated()
+                .requestMatchers("/displayMessages").hasRole("ADMIN")
+                .requestMatchers("/closeMsg/**").hasRole("ADMIN")
                 .requestMatchers("", "/", "/home").permitAll()
                 .requestMatchers("/holidays/**").permitAll()
                 .requestMatchers("/contact").permitAll()
@@ -39,7 +41,7 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/assets/**").permitAll()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/logout").permitAll()
-                .requestMatchers(PathRequest.toH2Console()).permitAll()
+                /*.requestMatchers(PathRequest.toH2Console()).permitAll()*/
             .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard")
@@ -48,9 +50,9 @@ public class ProjectSecurityConfig {
                 .logout().logoutSuccessUrl("/login?logout=true")
                 .invalidateHttpSession(true).permitAll()
             .and()
-                .httpBasic()
-            .and()
-                .headers().frameOptions().disable();
+                .httpBasic();
+            /*.and()
+                .headers().frameOptions().disable();*/
         /*http.headers().frameOptions().disable();*/
 
         return http.build();
@@ -76,7 +78,7 @@ public class ProjectSecurityConfig {
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("54321")
-                .roles("USER", "ADMIN")
+                .roles("ADMIN")
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
