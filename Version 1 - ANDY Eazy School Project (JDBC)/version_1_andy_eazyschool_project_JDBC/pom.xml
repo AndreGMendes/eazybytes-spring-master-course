@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eazybytes</groupId>
-	<artifactId>my-eazyschool-project-andy</artifactId>
+	<artifactId>my-eazyschool-project-andy-using-standard-JDBC</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>my-eazyschool-project-andy</name>
 	<description>Eazy School Web Application</description>
