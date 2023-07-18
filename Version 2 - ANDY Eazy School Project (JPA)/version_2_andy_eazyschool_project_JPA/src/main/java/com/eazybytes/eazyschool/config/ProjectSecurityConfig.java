@@ -26,6 +26,7 @@ public class ProjectSecurityConfig {
         /*http.csrf().disable()*/
         http.csrf()
                 .ignoringRequestMatchers("/saveMsg")
+                .ignoringRequestMatchers("/public/**")
                 /*.ignoringRequestMatchers(PathRequest.toH2Console())*/
             .and()
                 .authorizeHttpRequests()
@@ -41,6 +42,7 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/assets/**").permitAll()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/logout").permitAll()
+                .requestMatchers("/public/**").permitAll()
                 /*.requestMatchers(PathRequest.toH2Console()).permitAll()*/
             .and()
                 .formLogin().loginPage("/login")
