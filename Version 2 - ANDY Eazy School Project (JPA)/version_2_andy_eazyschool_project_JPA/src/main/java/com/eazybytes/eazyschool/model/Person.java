@@ -58,6 +58,39 @@ public class Person extends BaseEntity{
     @Transient
     private String confirmPwd;
 
+    /**
+     CascadeType.PERSIST ----> Removing the parent table record does NOT remove the child table record associated.
+     CascadeType.ALL --------> Removing the parent table record also removes the child table record.
+
+     FetchType.LAZY ---------> Loads on demand (ex: if a method is called that belongs to this associated class)
+     FetchType.EAGER --------> Loads all the related variable/table data (Takes more time)
+
+     Sometimes you have two entities and there's a relationship between them.
+     For example, you might have an entity called University and another entity called Student
+     and a University might have many Students:
+     The University entity might have some basic properties such as id, name, address, etc.
+     as well as a collection property called students that returns the list of students for a given university:
+
+         public class University {
+             private String id;
+             private String name;
+             private String address;
+             private List<Student> students;
+
+         // setters and getters
+         }
+
+     Now when you load a University from the database, JPA loads its id, name, and address fields for you.
+     But you have two options for how students should be loaded:
+
+     1) To load it together with the rest of the fields (i.e. eagerly), or
+     2) To load it on-demand (i.e. lazily) when you call the university's getStudents() method.
+     When a university has many students it is not efficient to load all of its students
+     together with it, especially when they are not needed and in suchlike cases
+     you can declare that you want students to be loaded when they are actually needed.
+     This is called lazy loading.
+    */
+
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST, targetEntity = Roles.class)
     @JoinColumn(name = "role_id", referencedColumnName = "roleId",nullable = false)
     private Roles roles;

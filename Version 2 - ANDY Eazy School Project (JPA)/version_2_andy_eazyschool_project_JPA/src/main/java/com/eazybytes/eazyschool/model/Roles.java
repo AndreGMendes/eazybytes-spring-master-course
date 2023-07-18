@@ -1,14 +1,12 @@
 package com.eazybytes.eazyschool.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @Entity
+/**@Table(name = "roles") -----------------> Not needed because the class name is equal to the table name*/
 public class Roles extends BaseEntity {
 
     @Id
@@ -16,6 +14,8 @@ public class Roles extends BaseEntity {
     @GenericGenerator(name = "native",strategy = "native")
     private int roleId;
 
+    /**@Column(name = "roleName") ---------> Is optional if column name and field name
+     *                                      are the same after removing the '_' */
     private String roleName;
 
 }
