@@ -59,8 +59,12 @@ public class Person extends BaseEntity{
     private String confirmPwd;
 
     /**
-     CascadeType.PERSIST ----> Removing the parent table record does NOT remove the child table record associated.
-     CascadeType.ALL --------> Removing the parent table record also removes the child table record.
+     CascadeType.PERSIST ----> Saving the parent table cascades to child table record associated.
+     CascadeType.REMOVE -----> Removing the parent table record does NOT remove the child table record associated.
+     CascadeType.ALL --------> All actions on the parent table record also cascade to the child table record.
+     CascadeType.DETACH -----> When detaching parent object from the current Session detach the child entity also
+     CascadeType.REFRESH ----> When reloading the parent entity also reload the child
+     CascadeType.MERGE ------> Similar to an Update operation
 
      FetchType.LAZY ---------> Loads on demand (ex: if a method is called that belongs to this associated class)
      FetchType.EAGER --------> Loads all the related variable/table data (Takes more time)
@@ -95,7 +99,7 @@ public class Person extends BaseEntity{
     @JoinColumn(name = "role_id", referencedColumnName = "roleId",nullable = false)
     private Roles roles;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL, targetEntity = Address.class)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL /*, targetEntity = Address.class - Not really needed*/)
     @JoinColumn(name = "address_id", referencedColumnName = "addressId",nullable = true)
     private Address address;
 }
