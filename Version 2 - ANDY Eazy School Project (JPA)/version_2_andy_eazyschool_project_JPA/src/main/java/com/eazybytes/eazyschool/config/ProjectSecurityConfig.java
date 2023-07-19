@@ -68,7 +68,11 @@ public class ProjectSecurityConfig {
 
     }
 
-    @Bean
+    /**
+     * In Memory login
+     *
+     * */
+    /*@Bean
     public InMemoryUserDetailsManager UserDetailsService () {
 
         UserDetails user = User.withDefaultPasswordEncoder()
@@ -84,7 +88,6 @@ public class ProjectSecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
-
-    }
+    }*/
 
 }
