@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -70,8 +72,8 @@ public class ProjectSecurityConfig {
 
     /**
      * In Memory login
-     *
-     * */
+     * This was initially being hardcoded here but later changed when Security package has added
+     * 'EazySchoolUsernamePwdAuthenticationProvider' */
     /*@Bean
     public InMemoryUserDetailsManager UserDetailsService () {
 
@@ -89,5 +91,12 @@ public class ProjectSecurityConfig {
 
         return new InMemoryUserDetailsManager(user, admin);
     }*/
+
+    /**Password encoding*/
+    @Bean
+    public PasswordEncoder passwordEncoder () {
+        return new BCryptPasswordEncoder();
+    }
+
 
 }

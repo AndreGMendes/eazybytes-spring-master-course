@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     Person readByEmail(String email);
-    /*Person readByName(String name);*/
+    /*Person getByName(String name);*/
 
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class EazySchoolUsernamePwdAuthenticationProvider implements Authenticati
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     /**
@@ -40,14 +44,18 @@ public class EazySchoolUsernamePwdAuthenticationProvider implements Authenticati
         String email = authentication.getName();
         /*String name = authentication.getName();*/
         String pwd = authentication.getCredentials().toString();
-       Person person = personRepository.readByEmail(email);
-        /*Person person = personRepository.readByName(name);*/
+        Person person = personRepository.readByEmail(email);
+        /*Person person = personRepository.getByName(name);*/
 
-        if(null != person && person.getPersonId() > 0 && pwd.equals(person.getPwd())){
+        if(
+                null != person &&
+                        person.getPersonId() > 0 &&
+                        passwordEncoder.matches(pwd, person.getPwd())) {
 
             return new UsernamePasswordAuthenticationToken(
                     person.getName(),
-                    pwd,
+                    /*pwd,*/
+                    null,
                     getGrantedAuthorities(person.getRoles()));
 
         }else{
