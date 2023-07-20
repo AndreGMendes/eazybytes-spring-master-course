@@ -21543,3 +21543,8 @@ label {
   margin: 50px;
 }
 
+
+.control-label:after {
+  content: "\00a0" "*";
+  color: red;
+}

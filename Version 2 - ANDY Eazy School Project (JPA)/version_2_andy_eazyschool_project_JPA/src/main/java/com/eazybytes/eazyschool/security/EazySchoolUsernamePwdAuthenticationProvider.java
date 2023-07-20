@@ -53,7 +53,7 @@ public class EazySchoolUsernamePwdAuthenticationProvider implements Authenticati
                         passwordEncoder.matches(pwd, person.getPwd())) {
 
             return new UsernamePasswordAuthenticationToken(
-                    person.getName(),
+                    email,
                     /*pwd,*/
                     null,
                     getGrantedAuthorities(person.getRoles()));
