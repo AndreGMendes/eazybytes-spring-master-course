@@ -95,11 +95,33 @@ public class Person extends BaseEntity{
      This is called lazy loading.
     */
 
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST, targetEntity = Roles.class)
-    @JoinColumn(name = "role_id", referencedColumnName = "roleId",nullable = false)
+    @OneToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.PERSIST,
+            targetEntity = Roles.class)
+    @JoinColumn(
+            name = "role_id",
+            referencedColumnName = "roleId",
+            nullable = false)
     private Roles roles;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL /*, targetEntity = Address.class - Not really needed*/)
-    @JoinColumn(name = "address_id", referencedColumnName = "addressId",nullable = true)
+    @OneToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL /*, targetEntity = Address.class - Not really needed*/)
+    @JoinColumn(
+            name = "address_id",
+            referencedColumnName = "addressId",
+            nullable = true)
     private Address address;
+
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            optional = true)
+    @JoinColumn(
+            name = "class_id",
+            referencedColumnName = "classId",
+            nullable = true)
+    private EazyClass eazyClass;
+
+
 }
