@@ -19,11 +19,19 @@ public class GlobalExceptionController {
     exception type, so that ControllerAdvice can invoke this method
     logic if a given exception type is thrown inside the web application.
     * */
-    @ExceptionHandler(Exception.class)
-    public ModelAndView exceptionHandler(Exception exception){
+    @ExceptionHandler({Exception.class})
+    public ModelAndView exceptionHandler(Exception exception) {
+        String errorMsg = null;
         ModelAndView errorPage = new ModelAndView();
         errorPage.setViewName("error");
-        errorPage.addObject("errormsg", exception.getMessage());
+        if (exception.getMessage() != null) {
+            errorMsg = exception.getMessage();
+        } else if (exception.getCause() != null) {
+            errorMsg = exception.getCause().toString();
+        } else if (exception != null) {
+            errorMsg = exception.toString();
+        }
+        errorPage.addObject("errormsg", errorMsg);
         return errorPage;
     }
 
