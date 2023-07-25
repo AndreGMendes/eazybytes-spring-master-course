@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -119,7 +118,7 @@ public class Person extends BaseEntity{
 
     @OneToOne(
             fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL /*, targetEntity = Address.class - Not really needed*/)
+            cascade = CascadeType.ALL /**, 'targetEntity = Address.class' - Not really needed*/)
     @JoinColumn(
             name = "address_id",
             referencedColumnName = "addressId",

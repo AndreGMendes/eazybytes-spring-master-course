@@ -14,7 +14,7 @@ public class Roles extends BaseEntity {
     @GenericGenerator(name = "native",strategy = "native")
     private int roleId;
 
-    /**@Column(name = "roleName") ---------> Is optional if column name and field name
+    /**@Column(name = "role_name") ---------> Is optional if column name and field name
      *                                      are the same after removing the '_' */
     private String roleName;
 

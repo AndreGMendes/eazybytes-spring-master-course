@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,7 +31,7 @@ public class AdminController {
     CoursesRepository coursesRepository;
 
     @RequestMapping("/displayClasses")
-    public ModelAndView displayClasses(Model model) {
+    public ModelAndView displayClasses() {
 
         List<EazyClass> eazyClasses = eazyClassRepository.findAll();             /** Fetches all classes from the DB. */
         ModelAndView modelAndView = new ModelAndView("classes.html");   /** Creates the view. */
@@ -42,9 +41,7 @@ public class AdminController {
     }
 
     @PostMapping("/addNewClass")
-    public ModelAndView addNewClass (
-                                    Model model,
-                                    @ModelAttribute ("eazyClass") EazyClass eazyClass) {
+    public ModelAndView addNewClass (@ModelAttribute ("eazyClass") EazyClass eazyClass) {
 
         eazyClassRepository.save(eazyClass);
         ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayClasses");
@@ -52,9 +49,7 @@ public class AdminController {
     }
 
     @RequestMapping("/deleteClass")
-    public ModelAndView deleteClass(
-                                    Model model,
-                                    @RequestParam int id) {
+    public ModelAndView deleteClass (@RequestParam int id) {
 
         Optional<EazyClass> eazyClass = eazyClassRepository.findById(id);
         for(Person person : eazyClass.get().getPersons()){                  /**  Sets all persons classes to NULL */
@@ -67,11 +62,9 @@ public class AdminController {
     }
 
     @RequestMapping("/displayStudents")
-    public ModelAndView displayStudents (
-                                        Model model,
-                                        @RequestParam int classId,
-                                        HttpSession session,
-                                        @RequestParam (value = "error", required = false) String error) {
+    public ModelAndView displayStudents (@RequestParam int classId,
+                                         HttpSession session,
+                                         @RequestParam (value = "error", required = false) String error) {
 
         String errorMessage = null;
 
@@ -92,10 +85,8 @@ public class AdminController {
 
 
     @PostMapping("/addStudent")
-    public ModelAndView addStudent (
-                                    Model model,
-                                    @ModelAttribute("person") Person person,
-                                    HttpSession session ) {
+    public ModelAndView addStudent (@ModelAttribute("person") Person person,
+                                    HttpSession session) {
 
         ModelAndView modelAndView = new ModelAndView();
         EazyClass eazyClass = (EazyClass) session.getAttribute("eazyClass"); // passed on the method 'displayStudents'
@@ -119,10 +110,8 @@ public class AdminController {
     }
 
     @GetMapping("/deleteStudent")
-    public ModelAndView deleteStudent (
-                                        Model model,
-                                        @RequestParam int personId,
-                                        HttpSession session) {
+    public ModelAndView deleteStudent (@RequestParam int personId,
+                                       HttpSession session) {
 
         EazyClass eazyClass = (EazyClass) session.getAttribute("eazyClass");
         Optional <Person> person = personRepository.findById(personId);
@@ -141,7 +130,7 @@ public class AdminController {
     }
 
     @GetMapping("/displayCourses")
-    public ModelAndView displayCourses (Model model) {
+    public ModelAndView displayCourses () {
         List<Courses> courses = coursesRepository.findAll();
         ModelAndView modelAndView = new ModelAndView("courses_secure.html");
         modelAndView.addObject("courses", courses);
@@ -151,9 +140,7 @@ public class AdminController {
     }
 
     @PostMapping("/addNewCourse")
-    public ModelAndView addNewCourse (
-                                        Model model,
-                                        @ModelAttribute("course") Courses course) {
+    public ModelAndView addNewCourse (@ModelAttribute("course") Courses course) {
 
         ModelAndView modelAndView = new ModelAndView();
         coursesRepository.save(course);
@@ -162,11 +149,9 @@ public class AdminController {
     }
 
     @GetMapping("/viewStudents")
-    public ModelAndView viewStudents (
-                                        Model model,
-                                        @RequestParam int id,
-                                        @RequestParam(/*value = "error", */required = false) String error,
-                                        HttpSession session) {
+    public ModelAndView viewStudents (@RequestParam int id,
+                                      @RequestParam(/*value = "error", */required = false) String error,
+                                      HttpSession session) {
 
         String errorMessage = null;
 
@@ -186,9 +171,7 @@ public class AdminController {
     }
 
     @PostMapping("/addStudentToCourse")
-    public ModelAndView addStudentToCourse (
-                                            Model model,
-                                            @ModelAttribute ("person") Person person,
+    public ModelAndView addStudentToCourse (@ModelAttribute ("person") Person person,
                                             HttpSession session) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -211,8 +194,7 @@ public class AdminController {
 
 
     @GetMapping("/deleteStudentFromCourse")
-    public ModelAndView deleteStudentFromCourse (Model model,
-                                                 @RequestParam int personId,
+    public ModelAndView deleteStudentFromCourse (@RequestParam int personId,
                                                  HttpSession session) {
 
         Courses courses = (Courses) session.getAttribute("courses");

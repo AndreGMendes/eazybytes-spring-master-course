@@ -4,7 +4,6 @@ package com.eazybytes.eazyschool.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,7 +15,7 @@ import java.util.Set;
 @Data - Can't be used here or it will throw a StackOverFlow error
         because Lombok uses a ToString Method which is going to create issues
         when we're trying to do these kind of mappings inside the SprindDataJPA or any other ORM Framework.
-        So instead we will use @Getter and @Setter annotations in this EazyClass*/
+        So instead we will use @Getter and @Setter annotations in this EazyClass */
 @Getter
 @Setter
 @Entity

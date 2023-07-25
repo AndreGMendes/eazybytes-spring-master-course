@@ -1,18 +1,14 @@
 package com.eazybytes.eazyschool.service;
 
 import com.eazybytes.eazyschool.constants.EazySchoolConstants;
-import com.eazybytes.eazyschool.controller.ContactController;
+
 import com.eazybytes.eazyschool.model.Contact;
 import com.eazybytes.eazyschool.repository.ContactRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.ApplicationScope;
-import org.springframework.web.context.annotation.RequestScope;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,11 +22,10 @@ public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
-    /*private int counter = 0;*/
 
     /**Removed because with annotation '@Slf4j'
-     * the log object is created by Lombok automatically */
-   /* private static Logger log = LoggerFactory.getLogger(ContactService.class);*/
+     * the log object is created by Lombok automatically
+     * 'private static Logger log = LoggerFactory.getLogger(ContactService.class);' */
 
     public ContactService() {
         System.out.println("Contact Service Bean Initialized");
@@ -47,39 +42,29 @@ public class ContactService {
     public boolean saveMessageDetails (Contact contact) {
         boolean isSaved = false;
         contact.setStatus(EazySchoolConstants.OPEN);
-        /*contact.setCreatedBy(EazySchoolConstants.ANONYMOUS);
-        contact.setCreatedAt(LocalDateTime.now());*/
 
         Contact savedContact = contactRepository.save(contact);
         if (null != savedContact && savedContact.getContactId() > 0) {
             isSaved = true;
         }
 
-        /*log.info(contact.toString());*/
         return isSaved;
     }
 
-   /* public int getCounter() {
-        return counter;
-    }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }*/
 
     public List<Contact> findMsgsWithOpenStatus(){
         List<Contact> contactMsgs = contactRepository.findByStatus(EazySchoolConstants.OPEN);
         return contactMsgs;
     }
 
-    public boolean updateMsgStatus(int contactId/*, String updatedBy*/){
+    public boolean updateMsgStatus(int contactId){
         boolean isUpdated = false;
 
         Optional<Contact> contact = contactRepository.findById(contactId);
         contact.ifPresent(contact1 -> {
             contact1.setStatus(EazySchoolConstants.CLOSE);
-            /*contact1.setUpdatedBy(updatedBy);
-            contact1.setUpdatedAt(LocalDateTime.now());*/
+
         });
 
         Contact updatedContact = contactRepository.save(contact.get());

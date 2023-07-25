@@ -42,10 +42,8 @@ public class EazySchoolUsernamePwdAuthenticationProvider implements Authenticati
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         String email = authentication.getName();
-        /*String name = authentication.getName();*/
         String pwd = authentication.getCredentials().toString();
         Person person = personRepository.readByEmail(email);
-        /*Person person = personRepository.getByName(name);*/
 
         if(
                 null != person &&
@@ -54,7 +52,6 @@ public class EazySchoolUsernamePwdAuthenticationProvider implements Authenticati
 
             return new UsernamePasswordAuthenticationToken(
                     email,
-                    /*pwd,*/
                     null,
                     getGrantedAuthorities(person.getRoles()));
 

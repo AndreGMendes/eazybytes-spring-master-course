@@ -20,15 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ProfileController {
 
-   /** Bases for HTML connection
-    @RequestMapping("/displayProfile")
-    public ModelAndView displayMessages(Model model) {
-        ModelAndView modelAndView = new ModelAndView("profile.html");
-        return modelAndView;
-    }
-    */
-
-
    @Autowired
    PersonRepository personRepository;
 
@@ -64,15 +55,17 @@ public class ProfileController {
     public String updateProfile(
             @Valid @ModelAttribute("profile") Profile profile,
                                               Errors errors,
-                                              HttpSession session)
-    {
-        if(errors.hasErrors()){
+                                              HttpSession session) {
+
+        if(errors.hasErrors()) {
             return "profile.html";
         }
+
         Person person = (Person) session.getAttribute("loggedInPerson");
         person.setName(profile.getName());
         person.setEmail(profile.getEmail());
         person.setMobileNumber(profile.getMobileNumber());
+
         if(person.getAddress() == null || !(person.getAddress().getAddressId()>0)){
             person.setAddress(new Address());
         }
@@ -83,6 +76,7 @@ public class ProfileController {
         person.getAddress().setZipCode(profile.getZipCode());
         Person savedPerson = personRepository.save(person);
         session.setAttribute("loggedInPerson", savedPerson);
+
         return "redirect:/displayProfile";
     }
 

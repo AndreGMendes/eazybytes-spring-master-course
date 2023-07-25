@@ -1,12 +1,11 @@
 package com.eazybytes.eazyschool.service;
 
-import com.eazybytes.eazyschool.config.ProjectSecurityConfig;
 import com.eazybytes.eazyschool.constants.EazySchoolConstants;
 import com.eazybytes.eazyschool.model.Person;
 import com.eazybytes.eazyschool.model.Roles;
 import com.eazybytes.eazyschool.repository.PersonRepository;
 import com.eazybytes.eazyschool.repository.RolesRepository;
-import org.apache.catalina.core.ApplicationContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
