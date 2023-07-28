@@ -80,8 +80,24 @@ public class ContactService {
 
 
     public boolean updateMsgStatus(int contactId){
+
         boolean isUpdated = false;
 
+        int rows = contactRepository.updateMsgStatusNative(EazySchoolConstants.CLOSE, contactId);
+        if (rows > 0) {
+            isUpdated = true;
+        }
+        return isUpdated;
+    }
+
+
+
+    /*public boolean updateMsgStatus(int contactId){
+        boolean isUpdated = false;
+
+
+        *//** This code bellow can now be deleted because of the annotation @Query
+         *  which makes it possible to sava without having to get the entity from the DB*//*
         Optional<Contact> contact = contactRepository.findById(contactId);
         contact.ifPresent(contact1 -> {
             contact1.setStatus(EazySchoolConstants.CLOSE);
@@ -93,5 +109,5 @@ public class ContactService {
             isUpdated = true;
         }
         return isUpdated;
-    }
+    }*/
 }
