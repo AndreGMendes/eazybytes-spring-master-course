@@ -25,15 +25,15 @@ public class ProjectSecurityConfig {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        /*http.csrf().disable()*/
+
         http.csrf()
                 .ignoringRequestMatchers("/saveMsg")
                 .ignoringRequestMatchers("/public/**")
-                /*.ignoringRequestMatchers(PathRequest.toH2Console())*/
+
             .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/dashboard").authenticated()
-                .requestMatchers("/displayMessages").hasRole("ADMIN")
+                .requestMatchers("/displayMessages/**").hasRole("ADMIN")
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/closeMsg/**").hasRole("ADMIN")
                 .requestMatchers("/displayProfile").authenticated()
@@ -49,52 +49,24 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/logout").permitAll()
                 .requestMatchers("/public/**").permitAll()
-                /*.requestMatchers(PathRequest.toH2Console()).permitAll()*/
+
             .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard")
                 .failureUrl("/login?error=true").permitAll()
+
             .and()
                 .logout().logoutSuccessUrl("/login?logout=true")
                 .invalidateHttpSession(true).permitAll()
+
             .and()
                 .httpBasic();
-            /*.and()
-                .headers().frameOptions().disable();*/
-        /*http.headers().frameOptions().disable();*/
 
         return http.build();
 
-        /*http.authorizeHttpRequests()
-                .anyRequest().permitAll() *//**or denyAll()*//*
-                .and().formLogin()
-                .and().httpBasic();
-
-        return http.build();*/
-
     }
 
-    /**
-     * In Memory login
-     * This was initially being hardcoded here but later changed when Security package has added
-     * 'EazySchoolUsernamePwdAuthenticationProvider' */
-    /*@Bean
-    public InMemoryUserDetailsManager UserDetailsService () {
 
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("12345")
-                .roles("USER")
-                .build();
-
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("54321")
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(user, admin);
-    }*/
 
     /**Password encoding*/
     @Bean
