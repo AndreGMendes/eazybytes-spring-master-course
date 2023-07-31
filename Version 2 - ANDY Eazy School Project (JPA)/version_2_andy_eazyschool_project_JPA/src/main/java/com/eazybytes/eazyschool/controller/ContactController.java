@@ -35,11 +35,13 @@ public class ContactController {
         this.contactService = contactService;
     }
 
+
     @RequestMapping("/contact")
     public String displayContactPage (Model model) {
         model.addAttribute("contact", new Contact());
         return "contact.html";
     }
+
 
     @RequestMapping(value = "/saveMsg", method = POST)
     public String saveMessage (@Valid @ModelAttribute ("contact") Contact contact,
@@ -52,14 +54,6 @@ public class ContactController {
         contactService.saveMessageDetails(contact);
         return "redirect:/contact";
     }
-
-    /*@RequestMapping("/displayMessages")
-    public ModelAndView displayMessages() {
-        List<Contact> contactMsgs = contactService.findMsgsWithOpenStatus();
-        ModelAndView modelAndView = new ModelAndView("messages.html");
-        modelAndView.addObject("contactMsgs",contactMsgs);
-        return modelAndView;
-    }*/
 
 
     @RequestMapping("/displayMessages/page/{pageNum}")
@@ -84,10 +78,6 @@ public class ContactController {
 
         return modelAndView;
     }
-
-
-
-
 
 
     @RequestMapping(value = "/closeMsg",method = GET)
