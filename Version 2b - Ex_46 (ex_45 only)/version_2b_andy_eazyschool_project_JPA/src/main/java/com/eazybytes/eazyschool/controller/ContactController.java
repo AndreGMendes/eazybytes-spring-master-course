@@ -1,89 +1,55 @@
 package com.eazybytes.eazyschool.controller;
 
 import com.eazybytes.eazyschool.model.Contact;
-import com.eazybytes.eazyschool.service.ContactService;
-import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
+import com.eazybytes.eazyschool.model.Response;
+import com.eazybytes.eazyschool.proxy.ContactProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
-@Slf4j
-@Controller
+@RestController
 public class ContactController {
 
-    /**Removed because with annotation '@Slf4j'
-     * the log object is created by Lombok automatically */
+    @Autowired
+    ContactProxy contactProxy;
 
-    private final ContactService contactService;
+    /*@Autowired
+    RestTemplate restTemplate;
 
     @Autowired
-    public ContactController(ContactService contactService) {
-        this.contactService = contactService;
+    WebClient webClient;*/
+
+    @GetMapping("/getMessages")
+    public List<Contact> getMessages(@RequestParam("status") String status) {
+        return contactProxy.getMessagesByStatus(status);
     }
 
-
-    @RequestMapping("/contact")
-    public String displayContactPage (Model model) {
-        model.addAttribute("contact", new Contact());
-        return "contact.html";
+   /* @PostMapping("/saveMsg")
+    public ResponseEntity<Response> saveMsg(@RequestBody Contact contact){
+        String uri = "http://localhost:8080/api/contact/saveMsg";
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("invocationFrom","RestTemplate");
+        HttpEntity<Contact> httpEntity = new HttpEntity<>(contact, headers);
+        ResponseEntity<Response> responseEntity = restTemplate.exchange(uri, HttpMethod.POST,
+                httpEntity,Response.class);
+        return responseEntity;
     }
 
-
-    @RequestMapping(value = "/saveMsg", method = POST)
-    public String saveMessage (@Valid @ModelAttribute ("contact") Contact contact,
-                               Errors errors) {
-
-        if(errors.hasErrors()) {
-            log.error("Contact form validation failed due to: " + errors.toString());
-            return "contact.html";
-        }
-        contactService.saveMessageDetails(contact);
-        return "redirect:/contact";
-    }
-
-
-    @RequestMapping("/displayMessages/page/{pageNum}")
-    public ModelAndView displayMessages(Model model,
-                                        @PathVariable(name = "pageNum") int pageNum,
-                                        @RequestParam("sortField") String sortField,
-                                        @RequestParam("sortDir") String sortDir) {
-
-        Page<Contact> msgPage = contactService.findMsgsWithOpenStatus(pageNum,sortField,sortDir);
-        List<Contact> contactMsgs = msgPage.getContent();
-
-        ModelAndView modelAndView = new ModelAndView("messages.html");
-
-        model.addAttribute("currentPage", pageNum);
-        model.addAttribute("totalPages", msgPage.getTotalPages());
-        model.addAttribute("totalMsgs", msgPage.getTotalElements());
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        modelAndView.addObject("contactMsgs",contactMsgs);
-
-        return modelAndView;
-    }
-
-
-    @RequestMapping(value = "/closeMsg",method = GET)
-    public String closeMsg(@RequestParam int id) {
-
-        contactService.updateMsgStatus(id);
-        return "redirect:/displayMessages/page/1?sortField=name&sortDir=desc";
-    }
+    @PostMapping("/saveMessage")
+    public Mono<Response> saveMessage(@RequestBody Contact contact){
+        String uri = "http://localhost:8080/api/contact/saveMsg";
+        return webClient.post().uri(uri)
+                .header("invocationFrom","WebClient")
+                .body(Mono.just(contact),Contact.class)
+                .retrieve()
+                .bodyToMono(Response.class);
+    }*/
 }
