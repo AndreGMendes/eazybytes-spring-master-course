@@ -1,5 +1,6 @@
 package com.eazybytes.eazyschool.service;
 
+import com.eazybytes.eazyschool.config.EazySchoolProps;
 import com.eazybytes.eazyschool.constants.EazySchoolConstants;
 
 import com.eazybytes.eazyschool.model.Contact;
@@ -25,6 +26,9 @@ public class ContactService {
 
     @Autowired
     private ContactRepository contactRepository;
+
+    @Autowired
+    EazySchoolProps eazySchoolProps;
 
 
     /**Removed because with annotation '@Slf4j'
@@ -63,7 +67,7 @@ public class ContactService {
     }*/
 
 
-    public Page<Contact> findMsgsWithOpenStatus (int pageNum, String sortField, String sortDir) {
+    /*public Page<Contact> findMsgsWithOpenStatus (int pageNum, String sortField, String sortDir) {
 
         int pageSize = 5;
 
@@ -75,7 +79,30 @@ public class ContactService {
         Page <Contact> msgPage = contactRepository.findByStatusWithQuery(EazySchoolConstants.OPEN, pageable);
 
         return msgPage;
+    }*/
+
+
+    public Page<Contact> findMsgsWithOpenStatus (int pageNum, String sortField, String sortDir) {
+
+        int pageSize = eazySchoolProps.getPageSize();
+        String successMessage = null;
+
+        if(null != eazySchoolProps.getContact() && null != eazySchoolProps.getContact().get("pageSize")){
+            /*pageSize = Integer.parseInt(eazySchoolProps.getContact().get("pageSize").trim());*/
+            pageSize = Integer.parseInt(eazySchoolProps.getContact().get("pageSize"));
+            successMessage = eazySchoolProps.getContact().get("successMsg");
+        }
+
+        Pageable pageable = PageRequest.of (pageNum - 1,
+                pageSize,
+                sortDir.equals("asc") ? Sort.by(sortField).ascending()
+                        : Sort.by(sortField).descending());
+
+        Page <Contact> msgPage = contactRepository.findByStatusWithQuery(EazySchoolConstants.OPEN, pageable);
+
+        return msgPage;
     }
+
 
 
 

@@ -53,6 +53,7 @@ public class DashboardController {
 
         log.error("defaultPageSize value with Environment is : "+environment.getProperty("eazyschool.pageSize"));
         log.error("successMsg value with Environment is : "+environment.getProperty("eazyschool.contact.successMsg"));
+
         log.error("Java Home environment variable using Environment is : "+environment.getProperty("JAVA_HOME"));
     }
 
