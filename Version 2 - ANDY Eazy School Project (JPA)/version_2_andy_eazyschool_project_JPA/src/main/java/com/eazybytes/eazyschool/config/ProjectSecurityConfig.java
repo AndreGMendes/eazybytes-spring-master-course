@@ -30,6 +30,7 @@ public class ProjectSecurityConfig {
                 .ignoringRequestMatchers("/saveMsg")
                 .ignoringRequestMatchers("/public/**")
                 .ignoringRequestMatchers("/api/**")
+                .ignoringRequestMatchers("/data-api/**")
 
             .and()
                 .authorizeHttpRequests()
@@ -52,7 +53,7 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/logout").permitAll()
                 .requestMatchers("/public/**").permitAll()
 
-                .requestMatchers("/data-api/**").permitAll()
+                .requestMatchers("/data-api/**").authenticated()
 
             .and()
                 .formLogin().loginPage("/login")
