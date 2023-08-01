@@ -21,29 +21,36 @@ public class ContactController {
     @Autowired
     ContactProxy contactProxy;
 
-    /*@Autowired
+    @Autowired
     RestTemplate restTemplate;
 
-    @Autowired
+   /* @Autowired
     WebClient webClient;*/
 
     @GetMapping("/getMessages")
     public List<Contact> getMessages(@RequestParam("status") String status) {
+        System.out.println("This method as been called");
         return contactProxy.getMessagesByStatus(status);
     }
 
-   /* @PostMapping("/saveMsg")
+    @PostMapping("/saveMsg")
     public ResponseEntity<Response> saveMsg(@RequestBody Contact contact){
         String uri = "http://localhost:8080/api/contact/saveMsg";
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("invocationFrom","RestTemplate");
+
         HttpEntity<Contact> httpEntity = new HttpEntity<>(contact, headers);
-        ResponseEntity<Response> responseEntity = restTemplate.exchange(uri, HttpMethod.POST,
-                httpEntity,Response.class);
+
+        ResponseEntity<Response> responseEntity = restTemplate.exchange(uri,
+                                                                        HttpMethod.POST,
+                                                                        httpEntity,
+                                                                        Response.class);
+
         return responseEntity;
     }
 
-    @PostMapping("/saveMessage")
+    /*@PostMapping("/saveMessage")
     public Mono<Response> saveMessage(@RequestBody Contact contact){
         String uri = "http://localhost:8080/api/contact/saveMsg";
         return webClient.post().uri(uri)
