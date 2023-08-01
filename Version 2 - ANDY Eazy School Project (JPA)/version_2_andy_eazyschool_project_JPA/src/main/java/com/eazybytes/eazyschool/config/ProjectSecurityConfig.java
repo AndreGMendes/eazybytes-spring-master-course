@@ -43,7 +43,6 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/student/**").hasRole("STUDENT")
                 .requestMatchers("", "/", "/home").permitAll()
                 .requestMatchers("/holidays/**").permitAll()
-                .requestMatchers("/profile/**").permitAll()
                 .requestMatchers("/contact").permitAll()
                 .requestMatchers("/saveMsg").permitAll()
                 .requestMatchers("/courses").permitAll()
@@ -52,6 +51,8 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/logout").permitAll()
                 .requestMatchers("/public/**").permitAll()
+
+                .requestMatchers("/data-api/**").permitAll()
 
             .and()
                 .formLogin().loginPage("/login")
