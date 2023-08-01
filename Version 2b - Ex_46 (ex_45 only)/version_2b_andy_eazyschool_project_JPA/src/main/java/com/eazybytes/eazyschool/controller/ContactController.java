@@ -27,14 +27,17 @@ public class ContactController {
    /* @Autowired
     WebClient webClient;*/
 
+
     @GetMapping("/getMessages")
     public List<Contact> getMessages(@RequestParam("status") String status) {
-        System.out.println("This method as been called");
+
         return contactProxy.getMessagesByStatus(status);
     }
 
+
     @PostMapping("/saveMsg")
     public ResponseEntity<Response> saveMsg(@RequestBody Contact contact){
+
         String uri = "http://localhost:8080/api/contact/saveMsg";
 
         HttpHeaders headers = new HttpHeaders();
@@ -52,7 +55,9 @@ public class ContactController {
 
     /*@PostMapping("/saveMessage")
     public Mono<Response> saveMessage(@RequestBody Contact contact){
+
         String uri = "http://localhost:8080/api/contact/saveMsg";
+
         return webClient.post().uri(uri)
                 .header("invocationFrom","WebClient")
                 .body(Mono.just(contact),Contact.class)
