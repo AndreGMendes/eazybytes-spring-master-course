@@ -72,7 +72,7 @@ public class ContactService {
                                             sortDir.equals("asc") ? Sort.by(sortField).ascending()
                                                                   : Sort.by(sortField).descending());
 
-        Page <Contact> msgPage = contactRepository.findByStatus(EazySchoolConstants.OPEN, pageable);
+        Page <Contact> msgPage = contactRepository.findByStatusWithQuery(EazySchoolConstants.OPEN, pageable);
 
         return msgPage;
     }

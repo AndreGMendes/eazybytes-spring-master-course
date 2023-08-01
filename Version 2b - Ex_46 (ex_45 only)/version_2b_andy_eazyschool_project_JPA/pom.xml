@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eazybytes</groupId>
-	<artifactId>Eazy School Consuming Rest Services - example_46</artifactId>
+	<artifactId>Eazy_School_Consuming_Rest_Services_example_46</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Eazy School Consuming Rest Services - example_46</name>
 	<description>Sample project to demo consuming Rest Service</description>
