@@ -24,8 +24,8 @@ public class ContactController {
     @Autowired
     RestTemplate restTemplate;
 
-   /* @Autowired
-    WebClient webClient;*/
+    @Autowired
+    WebClient webClient;
 
 
     @GetMapping("/getMessages")
@@ -53,7 +53,7 @@ public class ContactController {
         return responseEntity;
     }
 
-    /*@PostMapping("/saveMessage")
+    @PostMapping("/saveMessage")
     public Mono<Response> saveMessage(@RequestBody Contact contact){
 
         String uri = "http://localhost:8080/api/contact/saveMsg";
@@ -63,5 +63,5 @@ public class ContactController {
                 .body(Mono.just(contact),Contact.class)
                 .retrieve()
                 .bodyToMono(Response.class);
-    }*/
+    }
 }

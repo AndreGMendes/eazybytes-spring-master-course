@@ -26,12 +26,12 @@ public class ProjectConfiguration {
     }
 
 
-   /* @Bean
+    @Bean
     public WebClient webClient() {
 
         return WebClient.builder()
                 .filter(ExchangeFilterFunctions.
                         basicAuthentication("admin@eazyschool.com", "admin"))
                 .build();
-    }*/
+    }
 }
