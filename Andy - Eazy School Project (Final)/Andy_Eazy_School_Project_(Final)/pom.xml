@@ -18,7 +18,7 @@
 	<description>Eazy School Web Application</description>
 	<properties>
 		<java.version>17</java.version>
-		<spring-boot-admin.version>3.0.4</spring-boot-admin.version>
+		<!--<spring-boot-admin.version>3.0.4</spring-boot-admin.version>-->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -98,7 +98,7 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-micrometer</artifactId>
 			<version>6.1.6.Final</version>
@@ -108,7 +108,7 @@
 			<groupId>de.codecentric</groupId>
 			<artifactId>spring-boot-admin-starter-client</artifactId>
 			<version>${spring-boot-admin.version}</version>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -117,7 +117,7 @@
 		</dependency>
 	</dependencies>
 
-	<dependencyManagement>
+	<!--<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>de.codecentric</groupId>
@@ -127,9 +127,10 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>
+	</dependencyManagement>-->
 
 	<build>
+		<finalName>EazySchool-AWS-Deployment-secure</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
