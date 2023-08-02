@@ -31,6 +31,7 @@ public class ProjectSecurityConfig {
                 .ignoringRequestMatchers("/public/**")
                 .ignoringRequestMatchers("/api/**")
                 .ignoringRequestMatchers("/data-api/**")
+                .ignoringRequestMatchers("/eazyschool/actuator/**")
 
             .and()
                 .authorizeHttpRequests()
@@ -54,6 +55,7 @@ public class ProjectSecurityConfig {
                 .requestMatchers("/public/**").permitAll()
 
                 .requestMatchers("/data-api/**").authenticated()
+                .requestMatchers("/eazyschool/actuator/**").hasRole("ADMIN")
 
             .and()
                 .formLogin().loginPage("/login")
