@@ -2,7 +2,7 @@
 <configuration>
 
    <!-- <property name="LOGS" value="C://logs" />-->
-    <property name="LOGS" value="D:\PROGRAMING Projects\CSS Tutorial – Full Course for Beginners (freeCodeCamp)\LOGS" />
+    <property name="LOGS" value="D:\PROGRAMING Projects\Eazybytes\Master Spring 6\LOGS" />
 
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
